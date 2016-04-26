@@ -25,7 +25,7 @@ public class Draw {
 			System.setProperty("org.lwjgl.librarypath", new File("natives/windows").getAbsolutePath()); 
 		else if(System.getProperty("os.name").contains("Mac")) 											
 			System.setProperty("org.lwjgl.librarypath", new File("natives/macosx").getAbsolutePath());  
-		else { // otherwise,
+		else {
 			System.out.println("Your OS is not supported"); 					
 			System.exit(0); 													
 		}
@@ -47,8 +47,8 @@ public class Draw {
 	}
 	
 	public static void Background() {
-		Texture background = loadTexture("textures/background/alley_background.png", "PNG");
-		drawQuad(0, 0, WIDTH, HEIGHT, background); 						
+		Texture background = loadTexture("textures/background/ally.jpg", "JPG");
+		drawBackground(0, 0, WIDTH, HEIGHT, background); 						
 		glColor3d(1, 1, 1); 														
 	}
 	
@@ -89,6 +89,47 @@ public class Draw {
 		glLoadIdentity(); 
 	}
 	
+	public static void drawBackground(float x, float y, float width, float height, Texture texture) {		
+		glEnable(GL_TEXTURE_2D); 															 
+		texture.bind();	  																	  
+		glTranslatef(x, y, 0);													  
+		
+		glBegin(GL_QUADS);
+		int w = 540;
+		int h = 70;
+		
+		glTexCoord2f(0, 0);
+		glVertex2f(0, 0);
+		
+		glTexCoord2f(1, 0);
+		glVertex2f(width+w, 0);
+		
+		glTexCoord2f(1, 1);
+		glVertex2f(width+w, height+h);
+		
+		glTexCoord2f(0, 1);
+		glVertex2f(0, height+h);
+		
+		glEnd(); 
+		
+		glLoadIdentity(); 
+	}
+	
+	public static void drawQuad(float x, float y, float width, float height, float r, float g, float b) {
+		glDisable(GL_TEXTURE_2D);
+		
+		glBegin(GL_QUADS);
+		
+		glColor3f(r, g, b);
+		glVertex2f(x, y);
+		glVertex2f(x+width, y);
+		glVertex2f(x+width, y+height);
+		glVertex2f(x, y+height);
+		glColor3f(1,1,1);
+		
+		glEnd();
+	}
+	
 	public static Texture loadTexture(String path, String type) {
 		try {
 			return TextureLoader.getTexture(type, new FileInputStream(new File(path)));
@@ -100,5 +141,7 @@ public class Draw {
 		return null;
 	}
 	
-	
+	public static Texture quickLoad(String path) {
+		return loadTexture("textures/" + path + ".png", "png");
+	}
 }
