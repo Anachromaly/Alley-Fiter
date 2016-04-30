@@ -17,7 +17,8 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class Draw {
 	
-	public static final int WIDTH = 1280, HEIGHT = 720;
+	public static final int WIDTH = 1024, HEIGHT = 512;
+	private static Texture background;
 	
 	public static void Setup() 																			
 	{
@@ -38,18 +39,27 @@ public class Draw {
 		} catch(LWJGLException e) {											
 			e.printStackTrace(); 												
 		}
-		
+			
 		glMatrixMode(GL_PROJECTION); 											
 		glLoadIdentity(); 														
-		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1); 										
+		glOrtho(0, WIDTH, HEIGHT, 0, 91, -1); 										
 		glMatrixMode(GL_MODELVIEW); 											
 		
+		background = loadTexture("textures/background.png", "PNG");
+	}
+	
+	public static void startTrans() {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+	
+	public static void endTrans() {
+		glDisable(GL_BLEND);
 	}
 	
 	public static void Background() {
-		Texture background = loadTexture("textures/background/ally.jpg", "JPG");
-		drawBackground(0, 0, WIDTH, HEIGHT, background); 						
-		glColor3d(1, 1, 1); 														
+		drawQuad(0, 0, WIDTH, HEIGHT, background);
+		glColor3d(1, 1, 1);
 	}
 	
 	public static void drawQuad(float x, float y, float width, float height) {
@@ -88,33 +98,7 @@ public class Draw {
 		
 		glLoadIdentity(); 
 	}
-	
-	public static void drawBackground(float x, float y, float width, float height, Texture texture) {		
-		glEnable(GL_TEXTURE_2D); 															 
-		texture.bind();	  																	  
-		glTranslatef(x, y, 0);													  
-		
-		glBegin(GL_QUADS);
-		int w = 540;
-		int h = 70;
-		
-		glTexCoord2f(0, 0);
-		glVertex2f(0, 0);
-		
-		glTexCoord2f(1, 0);
-		glVertex2f(width+w, 0);
-		
-		glTexCoord2f(1, 1);
-		glVertex2f(width+w, height+h);
-		
-		glTexCoord2f(0, 1);
-		glVertex2f(0, height+h);
-		
-		glEnd(); 
-		
-		glLoadIdentity(); 
-	}
-	
+
 	public static void drawQuad(float x, float y, float width, float height, float r, float g, float b) {
 		glDisable(GL_TEXTURE_2D);
 		

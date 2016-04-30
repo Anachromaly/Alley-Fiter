@@ -2,13 +2,12 @@ package outline;
 
 public enum ItemID {
 	
-	Floor("floor", true);
+	Robot("textures/RobotIdleLeft"), Dino("textures/DinoIdleRight"), RobotPunch("textures/RobotPunchLeft"), DinoPunch("textures/DinoPunchRight"),
+	RobotKick("textures/RobotKickLeft"), DinoKick("textures/DinoKickRight"), Floor("textures/platform.png");
 	
 	public String texture;
-	public boolean walk;
 	
-	ItemID(String texture, boolean walk) {
+	ItemID(String texture) {
 		this.texture = texture;
-		this.walk = walk;
 	}
 }

@@ -25,7 +25,7 @@ public class Animation {
 	
 	public Animation(String path, int fps) {
 		this.fps = fps;
-		int count = 1;
+		int count = 0;
 		do {
 			Texture t;
 			if((t = loadTexture(path + "/sprite_" + count + ".png", "PNG")) != null){
@@ -58,6 +58,10 @@ public class Animation {
 	
 	public Texture getCurrentFrame() {
 		return frames.get(frame);
+	}
+	
+	public int getFrameNum() {
+		return frame;
 	}
 	
 	public void nextFrame() {

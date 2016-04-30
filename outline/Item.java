@@ -6,21 +6,27 @@ import org.lwjgl.util.Rectangle;
 import static outline.Draw.*;
 
 public abstract class Item {
-	private float x, y, xSpeed, ySpeed, width, height;
+	protected float x, y, xSpeed, ySpeed, width, height;
 	protected Texture texture;
 	protected Rectangle hitbox;
 	protected ItemID id;
 	
-	public Item(float _x, float _y, float _height, float _width, ItemID _id, Rectangle _hitbox) {
+	public Item(float _x, float _y, float _width, float _height, ItemID _id, Rectangle _hitbox) {
 		x = _x;
 		y = _y;
-		width= _width;
 		height = _height;
-		hitbox = _hitbox;
+		width= _width;
 		id = _id;
+		hitbox = _hitbox;
 		texture = loadTexture(id.texture, "png");
 	}
-
+	
+	public abstract void render();
+	
+	public abstract void drawHealth();
+	
+	public abstract void tick();
+	
 	public float getX() {
 		return x;
 	}
@@ -32,6 +38,7 @@ public abstract class Item {
 	public float getY() {
 		return y;
 	}
+	
 	public void setY(float _y) {
 		y = _y;
 	}
