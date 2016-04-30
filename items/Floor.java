@@ -9,13 +9,17 @@ import outline.ItemID;
 public class Floor extends Item {
 	
 	public Floor() {
-		super((float)0, (float)700, (float)1280, (float)720, ItemID.Floor, new Rectangle((int)0, (int)1200, (int)1280, (int)720));
+		super(0, 450, 1024, 16, ItemID.Floor, new Rectangle((int)0, (int)480, (int)1024, (int)16));
+	}
+	
+	public void render() {
+		Draw.drawQuad(x, y, width, height, texture);
 	}
 	
 	public void tick() {
 	}
 	
-	public void render() {
-		Draw.drawQuad(x, y , width, height, texture);
+	public void drawHealth() {
 	}
+	
 }
